@@ -147,7 +147,7 @@ int main(int argc, char *argv[]) {
   }
   
   // init variables
-  if (!read_data_from_file("input.txt", in_a, input_length)) {
+  if (!read_data_from_file("data/input.txt", in_a, input_length)) {
     std::cerr << "Error reading data from file" << std::endl;
     return -1;
   }
@@ -157,7 +157,7 @@ int main(int argc, char *argv[]) {
 
   int errors = 0;
   
-  if (!write_data_to_file("output.txt", out, output_length)) {
+  if (!write_data_to_file("data/output.txt", out, output_length)) {
     std::cerr << "Error writing data to file" << std::endl;
     return -1;
   }

@@ -33,7 +33,7 @@ def my_vector_scalar():
     input_length = M * N * C
     input_byte = input_length // 4  # chop input in 4 sub-tensors
     # output_length = input_length // 4
-    output_length = input_length // 4
+    output_length = input_length 
     output_byte = output_length // 4  # chop input in 4 sub-tensors
 
     vectorized = True

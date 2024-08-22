@@ -138,7 +138,7 @@ int main(int argc, char *argv[]) {
   }
   
   // init variables
-  if (!read_data_from_file("../data/fft32_r2_window/sig0_i_gaussian.txt", in_a, FFT_LENGTH*2)) {
+  if (!read_data_from_file("data/sig0_i_gaussian.txt", in_a, FFT_LENGTH*2)) {
     std::cerr << "Error reading data from file" << std::endl;
     return -1;
   }
@@ -148,7 +148,7 @@ int main(int argc, char *argv[]) {
 
   int errors = 0;
   
-  if (!write_data_to_file("../data/fft32_r2_window/sig0_o.txt", out, FFT_LENGTH_OUT)) {
+  if (!write_data_to_file("data/sig0_o.txt", out, FFT_LENGTH_OUT)) {
     std::cerr << "Error writing data to file" << std::endl;
     return -1;
   }
