@@ -39,3 +39,7 @@ make vck5000
 ```
 Verification:
 For verification, spectrogram.py compares the generated output with a matlab code that does the same processing with RadioML inputs.
+
+Example of the 
+![image](https://github.com/user-attachments/assets/1aecf721-3407-49f8-bdf0-9a3b39098142)
+
