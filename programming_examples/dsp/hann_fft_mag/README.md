@@ -8,24 +8,38 @@
 // 
 //===----------------------------------------------------------------------===//-->
 
-# <ins>Vector Scalar</ins>
+# <ins>Spectrogram Generation</ins>
 
-Single tile performs `vector * scalar` of size `4096`. The kernel does a `1024` vector multiply and is invoked multiple times to complete the full vector*scalar compute.
+This design performs the computation for the DSP processing required for Auto Modulation Recognition. The expected inputs would be quantized complex signal in int16. 
+The three kernels used are:
+1. Overlap-and-save + Hann Window
+   Inputs:  complex int16
+   Outputs: complex int16
+2. FFT 32
+   Inputs:  complex int16
+   Outputs: complex int16
+3. Magnitude (complex to real conversion)
+   Inputs:  complex int16
+   Outputs: int32
 
-To compile desing in Windows:
-```
-make
-make build/vectorScalar.exe
-```
+![image](https://github.com/user-attachments/assets/b0d09dff-be8d-4c01-848b-a9ca3b2c2537)
 
-To run the design:
-```
-make run
-```
+Per the image above, each compute tile will be used to call each 1 of these kernels.
+
+First compute tile performs `overlap and save` of size `128*2(sample length in complex)`. The kernel produces `32*25(windows of fft length in complex)`
+
+Second compute tile performs `FFT32` using the Vitis DSP AIE API. The kernel takes in and produces the same `32*25(windows of fft length in complex)`. The input data is in discrete time and the output is in frequency data.
+
+Third compute tile performs `absolute` of size `32*25(windows of fft length in complex)` to produce `32*25(windows of fft length)`. This converts the complex inputs into real outputs for spectrogram generation.
 
 To compile and run the design for VCK5000:
 ```
 make vck5000
 ./test.elf
 ```
+Verification:
+For verification, spectrogram.py compares the generated output with a matlab code that does the same processing with RadioML inputs.
+
+Example of the 
+![image](https://github.com/user-attachments/assets/1aecf721-3407-49f8-bdf0-9a3b39098142)
 
